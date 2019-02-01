@@ -1,5 +1,3 @@
-# Dockerfile with updating
-
 FROM artorious/ostis
 
 RUN echo "Updating repositories" && \

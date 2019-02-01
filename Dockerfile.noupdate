@@ -1,6 +1,3 @@
-# Dockerfile without updating, use it if latest versions are not working at the time.
-# More stable but can be out of date.
-
 FROM artorious/ostis
 
 RUN echo "Copying kb"
