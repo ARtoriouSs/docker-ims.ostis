@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+#   redis:
+#     image: redis
+#     ports:
+#       - "6379:6379"
+
+  sctp:
+    build: .
+    # links:
+      # - redis
+    command: bash -c "redis-server & cd ostis/scripts/ && ./restart_sctp.sh & cd ostis/scripts/ && ./run_scweb.sh"
+    ports:
+      # - "55770:55770"
+      # - "6379:6379"
+      - "8000:8000"
+
+  # http_server:
+  #   build: .
+  #   links:
+  #     - sctp
+  #   command: bash -c "cd ostis/scripts/ && ./run_scweb.sh"
+  #   ports:
+  #     - "8000:8000"
