@@ -1,4 +1,5 @@
 # Dockerfile with updating
+
 FROM artorious/ostis
 
 RUN echo "Updating repositories" && \
@@ -9,5 +10,3 @@ RUN echo "Updating repositories" && \
 
 RUN echo "Copying kb"
 COPY ./* /ostis/kb
-
-# here is copying
