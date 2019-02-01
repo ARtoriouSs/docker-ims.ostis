@@ -11,7 +11,7 @@
 
 * [Для Linux](https://www.digitalocean.com/community/tutorials/docker-ubuntu-16-04-ru "Установка Docker на Ubuntu")
 
-* [Для Windows 10](https://hub.docker.com/editions/community/docker-ce-desktop-windows "Установка Docker на Windows 10") или [Для более старых Windows](https://docs.docker.com/toolbox/overview/ "Установка Docker на старых Windows")
+* [Для Windows 10](https://hub.docker.com/editions/community/docker-ce-desktop-windows "Установка Docker на Windows 10") или [для старых Windows](https://docs.docker.com/toolbox/overview/ "Установка Docker на старых Windows")
 
 Если с установкой по ссылкам что-то неясно, можно просто загуглить, там всё просто.  
 Далее просто выполняем следующие команды (для шиндовс это лучше делать в bash эмуляторе типо [GitBash](https://gitforwindows.org/ "GitBash")):
