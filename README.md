@@ -75,4 +75,4 @@ docker rm -f $(docker ps -aq) && docker rmi ostis
 ```
 Вносим изменения в базу, снова собираем, запускаем...
 
-## Автор идеи [Маша](https://github.com/idealasgas "GitHub Маши") :)
+### Автор идеи [Маша](https://github.com/idealasgas "GitHub Маши") :)
