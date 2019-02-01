@@ -7,4 +7,7 @@ RUN echo "Updating repositories" && \
     cd /ostis/sc-web && git pull origin master && \
     cd /ostis/ims.ostis.kb && git pull origin master
 
+RUN echo "Copying kb"
+COPY ./* /ostis/kb
+
 # here is copying
