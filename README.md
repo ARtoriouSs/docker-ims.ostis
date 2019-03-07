@@ -30,12 +30,12 @@ cd ostis/kb # или cd абсолютно/любая/папка/в/которо
 После обновления (или его отстутствия) оба варианта скопируют всё что есть в текущей директории в папку kb в контейнере, для этого и был нужен предыдущий шаг.  
 Штош, первый вариант с обновлениями:
 ```bash
-curl https://raw.githubusercontent.com/ARtoriouSs/ostis-docker/master/Dockerfile | docker build --pull --tag ostis --file - .
+curl https://raw.githubusercontent.com/ARtoriouSs/docker-ims.ostis/master/Dockerfile | docker build --pull --tag ostis --file - .
 ```
 
 Или второй, без обновлений, если первый не работает:
 ```bash
-curl https://raw.githubusercontent.com/ARtoriouSs/ostis-docker/master/Dockerfile.noupdate | docker build --pull --tag ostis --file - .
+curl https://raw.githubusercontent.com/ARtoriouSs/docker-ims.ostis/master/Dockerfile.noupdate | docker build --pull --tag ostis --file - .
 ```
 
 Тут стоит отметить, что ```.``` в конце этих команд можно заменить на путь к папке с файлами базы, тогда первый шаг не обязателен.
@@ -64,7 +64,7 @@ docker rm -f $(docker ps -aq) && docker rmi ostis
 
 Собираем:
 ```bash
-curl https://raw.githubusercontent.com/ARtoriouSs/ostis-docker/master/Dockerfile | docker build --pull --tag ostis --file - .
+curl https://raw.githubusercontent.com/ARtoriouSs/docker-ims.ostis/master/Dockerfile | docker build --pull --tag ostis --file - .
 ```
 Запускаем:
 ```bash
