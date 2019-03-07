@@ -1,4 +1,4 @@
 FROM artorious/ostis
 
 RUN echo "Copying kb"
-COPY ./* /ostis/kb
+COPY ./* /ostis/kb/
