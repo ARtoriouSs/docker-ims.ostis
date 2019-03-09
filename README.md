@@ -40,7 +40,7 @@ curl https://raw.githubusercontent.com/ARtoriouSs/docker-ims.ostis/master/Docker
 curl https://raw.githubusercontent.com/ARtoriouSs/docker-ims.ostis/master/Dockerfile.noupdate | docker build --pull --tag ostis --file - .
 ```
 
-В первый раз он будет скачивать около двух гигов ~вирусов~, в последующих запусках всё будет намного быстрее. Если всё хорошо в конце должны быть строчки Successfully built 3f9b004f0108 и Successfully tagged ostis:latest.
+В первый раз он будет скачивать около двух гигов ~вирусов~, в последующих запусках всё будет намного быстрее. Если всё хорошо в конце должны быть строчки Successfully built и Successfully tagged.
 
 **Шаг 3**
 
