@@ -2,7 +2,7 @@
 
 if [ -z "$1" ]
 then
-    echo "Error! Script requires path argument. Usage: './run.sh /path/to/kb [noupdate]'."
+    echo "Script requires path argument! Usage: './run.sh /path/to/kb [noupdate]'."
     exit
 fi
 
