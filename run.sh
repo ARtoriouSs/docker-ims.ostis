@@ -6,6 +6,11 @@ then
     exit
 fi
 
+if ! [ "$(ls -A $1)" ]; then
+    echo "The target directory $1 is empty, creating .keep file"
+    touch $1/.keep
+fi
+
 docker rm -f $(docker ps -aq) > /dev/null 2>&1
 docker rmi -f $(docker images -a | grep "^<none>" | awk "{print $3}") > /dev/null 2>&1
 docker rmi -f ostis > /dev/null 2>&1
