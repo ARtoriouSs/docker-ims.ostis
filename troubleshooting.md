@@ -19,7 +19,7 @@ SECURITY WARNING: You are building a Docker image from Windows against a non-Win
 ```
 C:\Program Files\Docker\Docker\Resources\bin\docker.exe: Error response from daemon: driver failed programming external connectivity on endpoint confident_elbakyan (a0c50014a5332bdba02aa202209b2b8cb3ad083c15698cddb42ab723cd4cсdc9): Error st arting userland proxy: mkdir /port/tcp:0.0.0.0:8000:tcp:172.17.0.2:8000: input/output error.
 ```
-Снизу справа ищем значок докера (кит), тыкаем правой кнопкой, там Settings, в открывшемся окне вкладка Reset, там тыкаем Restart Docker Desktop, ждём перезапуска и пробуем снова, должно работать.
+Снизу справа ищем значок докера (кит), тыкаем правой кнопкой, там тыкаем Restart, ждём перезапуска и пробуем снова, должно работать.
 
 ## На линуксе
 
