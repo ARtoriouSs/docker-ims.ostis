@@ -1,7 +1,18 @@
 #!/bin/bash
 
 printHelp() {
-    echo "help"
+    cat << EOM
+
+Usage: ./run.sh PATH [OPTIONS]
+
+PATH: Absolute or relative path to directory with kb files.
+
+OPTIONS:
+    --help -h       Shows this message.
+    --noupdate -n   Prevents container from updating repositories.
+    --port= -p=     Sets the server port equal to given value.
+
+EOM
 }
 
 cleanDockerIndex() {
@@ -12,12 +23,23 @@ cleanDockerIndex() {
 
 if [ -z "$1" ]
 then
-    echo "Error! Script requires path argument"
+    echo "Error: script requires path argument"
     printHelp
     exit 1
-else
+fi
+
+if [[ -d "$1" ]]; then
     path=$1
     shift
+else
+    if [[ $1 = "-h" || $1 = "--help" ]]; then
+        printHelp
+        exit 0
+    else
+        echo "Error: $1 is not a directory"
+        printHelp
+        exit 1
+    fi
 fi
 
 port="8000"
@@ -31,9 +53,9 @@ while [ $# -gt 0 ]; do
     -h*)            printHelp ;;
     --help*)        printHelp ;;
     *)
-      echo "Error! invalid argument: $1"
-      printHelp
-      exit 1
+        echo "Error: invalid argument: $1"
+        printHelp
+        exit 1
     ;;
   esac
   shift
