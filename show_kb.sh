@@ -5,4 +5,4 @@ if [[ $1 = "-h" || $1 = "--help" ]]; then
     exit 0
 fi
 
-docker run ostis bash -c ./show_kb.sh
+docker run ostis bash -c "tree /ostis/kb"
