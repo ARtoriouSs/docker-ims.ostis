@@ -29,7 +29,7 @@ then
 fi
 
 if [[ -d "$1" ]]; then
-    path=$1
+    path_to_kb=$1
     shift
 else
     if [[ $1 = "-h" || $1 = "--help" ]]; then
@@ -61,18 +61,18 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-if ! [ "$(ls -A $path)" ]; then
-    echo "The target directory $path is empty, creating .keep file"
-    touch $path/.keep
+if ! [ "$(ls -A $path_to_kb)" ]; then
+    echo "The target directory $path_to_kb is empty, creating .keep file"
+    touch $path_to_kb/.keep
 fi
 
 cleanDockerIndex
 
 if [ -z "$noupdate" ]
 then
-    docker build --pull --tag ostis --file Dockerfile $path
+    docker build --pull --tag ostis --file Dockerfile $path_to_kb
 else
-    docker build --pull --tag ostis --file Dockerfile.noupdate $path
+    docker build --pull --tag ostis --file Dockerfile.noupdate $path_to_kb
 fi
 
 docker run -p $port:8000/tcp ostis bash -c "./run.sh"

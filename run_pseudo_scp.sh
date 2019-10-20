@@ -27,7 +27,7 @@ if [ -z "$1" ]; then
 fi
 
 if [[ -d "$1" ]]; then
-    path=$1
+    path_to_code=$1
     shift
 else
     if [[ $1 = "-h" || $1 = "--help" ]]; then
@@ -40,10 +40,17 @@ else
     fi
 fi
 
+executable="wave"
+tests_dir="graph"
+
 while [ $# -gt 0 ]; do
   case "$1" in
     --noupdate*)    noupdate="true" ;;
     -n*)            noupdate="true" ;;
+    --executable*)  executable="${1#*=}" ;;
+    -e*)            executable="${1#*=}" ;;
+    --tests-dir*)   tests_dir="${1#*=}" ;;
+    -t*)            tests_dir="${1#*=}" ;;
     -h*)            printHelp ;;
     --help*)        printHelp ;;
     *)
@@ -55,13 +62,13 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-if ! [[ -f "$path/CMakeLists.txt" ]]; then
-    echo "The code directory $path should contain CMakeLists.txt file. Aborting..."
+if ! [[ -f "$path_to_code/CMakeLists.txt" ]]; then
+    echo "The code directory $path_to_code should contain CMakeLists.txt file. Aborting..."
     exit 1
 fi
 
-if ! [[ -d "$path/graph" ]]; then
-    echo "The code directory $path should contain graph directory with tests. Aborting..."
+if ! [[ -d "$path_to_code/graph" ]]; then
+    echo "The code directory $path_to_code should contain graph directory with tests. Aborting..."
     exit 1
 fi
 
@@ -69,9 +76,9 @@ cleanDockerIndex
 
 if [ -z "$noupdate" ]
 then
-    docker build --pull --tag ostis --file Dockerfile.pseudo-scp $path
+    docker build --pull --tag ostis --file Dockerfile.pseudo-scp $path_to_code
 else
-    docker build --pull --tag ostis --file Dockerfile.pseudo-scp.noupdate $path
+    docker build --pull --tag ostis --file Dockerfile.pseudo-scp.noupdate $path_to_code
 fi
 
-# docker run ostis bash -c "./run_pseudo_scp.sh"
+docker run -e "EXECUTABLE_NAME=$executable" -e "TESTS_DIR=$tests_dir" ostis bash -c "./run_pseudo_scp.sh"
