@@ -67,7 +67,7 @@ if ! [[ -f "$path_to_code/CMakeLists.txt" ]]; then
     exit 1
 fi
 
-if ! [[ -d "$path_to_code/graph" ]]; then
+if ! [[ -d "$path_to_code/$tests_dir" ]]; then
     echo "The code directory $path_to_code should contain graph directory with tests. Aborting..."
     exit 1
 fi
