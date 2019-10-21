@@ -82,3 +82,5 @@ else
 fi
 
 docker run -e "EXECUTABLE_NAME=$executable" -e "TESTS_DIR=$tests_dir" ostis bash -c "./run_pseudo_scp.sh"
+
+cleanDockerIndex
