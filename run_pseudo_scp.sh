@@ -5,12 +5,11 @@ printHelp() {
 
 Usage: ./run.sh PATH [OPTIONS]
 
-PATH: Absolute or relative path to directory with kb files.
+PATH: Absolute or relative path to directory with pseudo-scp code and tests.
 
 OPTIONS:
     --help -h       Shows this message.
     --noupdate -n   Prevents container from updating repositories.
-    --port= -p=     Sets the server port equal to given value.
 
 EOM
 }
@@ -21,15 +20,14 @@ cleanDockerIndex() {
     docker rmi -f ostis > /dev/null 2>&1
 }
 
-if [ -z "$1" ]
-then
-    echo "Error: script requires path argument"
+if [ -z "$1" ]; then
+    echo "Error: script requires code path argument"
     printHelp
     exit 1
 fi
 
 if [[ -d "$1" ]]; then
-    path_to_kb=$1
+    path_to_code=$1
     shift
 else
     if [[ $1 = "-h" || $1 = "--help" ]]; then
@@ -42,14 +40,17 @@ else
     fi
 fi
 
-port="8000"
+executable="wave"
+tests_dir="graph"
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --noupdate*)    noupdate="true" ;;
     -n*)            noupdate="true" ;;
-    --port=*)       port="${1#*=}" ;;
-    -p=*)           port="${1#*=}" ;;
+    --executable*)  executable="${1#*=}" ;;
+    -e*)            executable="${1#*=}" ;;
+    --tests-dir*)   tests_dir="${1#*=}" ;;
+    -t*)            tests_dir="${1#*=}" ;;
     -h*)            printHelp ;;
     --help*)        printHelp ;;
     *)
@@ -61,18 +62,23 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-if ! [ "$(ls -A $path_to_kb)" ]; then
-    echo "The target directory $path_to_kb is empty, creating .keep file"
-    touch $path_to_kb/.keep
+if ! [[ -f "$path_to_code/CMakeLists.txt" ]]; then
+    echo "The code directory $path_to_code should contain CMakeLists.txt file. Aborting..."
+    exit 1
+fi
+
+if ! [[ -d "$path_to_code/graph" ]]; then
+    echo "The code directory $path_to_code should contain graph directory with tests. Aborting..."
+    exit 1
 fi
 
 cleanDockerIndex
 
 if [ -z "$noupdate" ]
 then
-    docker build --pull --tag ostis --file Dockerfile $path_to_kb
+    docker build --pull --tag ostis --file Dockerfile.pseudo-scp $path_to_code
 else
-    docker build --pull --tag ostis --file Dockerfile.noupdate $path_to_kb
+    docker build --pull --tag ostis --file Dockerfile.pseudo-scp.noupdate $path_to_code
 fi
 
-docker run -p $port:8000/tcp ostis bash -c "./run.sh"
+docker run -e "EXECUTABLE_NAME=$executable" -e "TESTS_DIR=$tests_dir" ostis bash -c "./run_pseudo_scp.sh"
