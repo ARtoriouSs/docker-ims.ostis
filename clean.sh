@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [[ $1 = "-h" || $1 = "--help" ]]; then
-    printf "\nUsage: ./clean.sh - Removes ALL docker containers and all <none> or 'ostis' taged images\n\n"
-    exit 0
+  printf "\nUsage: ./clean.sh - Removes ALL docker containers and all <none> or 'ostis' taged images\n\n"
+  exit 0
 fi
 
 echo "Cleaning..."

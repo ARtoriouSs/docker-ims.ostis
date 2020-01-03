@@ -1,45 +1,45 @@
 #!/bin/bash
 
 printHelp() {
-    cat << EOM
+  cat << EOM
 
 Usage: ./run.sh PATH [OPTIONS]
 
 PATH: Absolute or relative path to directory with kb files.
 
 OPTIONS:
-    --help -h       Shows this message.
-    --noupdate -n   Prevents container from updating repositories.
-    --port= -p=     Sets the server port equal to given value.
+  --help -h       Shows this message.
+  --noupdate -n   Prevents container from updating repositories.
+  --port= -p=     Sets the server port equal to given value.
 
 EOM
 }
 
 cleanDockerIndex() {
-    docker rm -f $(docker ps -aq) > /dev/null 2>&1
-    docker rmi -f $(docker images -a | grep "^<none>" | awk "{print $3}") > /dev/null 2>&1
-    docker rmi -f ostis > /dev/null 2>&1
+  docker rm -f $(docker ps -aq) > /dev/null 2>&1
+  docker rmi -f $(docker images -a | grep "^<none>" | awk "{print $3}") > /dev/null 2>&1
+  docker rmi -f ostis > /dev/null 2>&1
 }
 
 if [ -z "$1" ]
 then
-    echo "Error: script requires path argument"
-    printHelp
-    exit 1
+  echo "Error: script requires path argument"
+  printHelp
+  exit 1
 fi
 
 if [[ -d "$1" ]]; then
-    path_to_kb=$1
-    shift
+  path_to_kb=$1
+  shift
 else
-    if [[ $1 = "-h" || $1 = "--help" ]]; then
-        printHelp
-        exit 0
-    else
-        echo "Error: $1 is not a directory"
-        printHelp
-        exit 1
-    fi
+  if [[ $1 = "-h" || $1 = "--help" ]]; then
+    printHelp
+    exit 0
+  else
+    echo "Error: $1 is not a directory"
+    printHelp
+    exit 1
+  fi
 fi
 
 port="8000"
@@ -53,26 +53,26 @@ while [ $# -gt 0 ]; do
     -h*)            printHelp ;;
     --help*)        printHelp ;;
     *)
-        echo "Error: invalid argument: $1"
-        printHelp
-        exit 1
+      echo "Error: invalid argument: $1"
+      printHelp
+      exit 1
     ;;
   esac
   shift
 done
 
 if ! [ "$(ls -A $path_to_kb)" ]; then
-    echo "The target directory $path_to_kb is empty, creating .keep file"
-    touch $path_to_kb/.keep
+  echo "The target directory $path_to_kb is empty, creating .keep file"
+  touch $path_to_kb/.keep
 fi
 
 cleanDockerIndex
 
 if [ -z "$noupdate" ]
 then
-    docker build --pull --tag ostis --file Dockerfile $path_to_kb
+  docker build --pull --tag ostis --file Dockerfile $path_to_kb
 else
-    docker build --pull --tag ostis --file Dockerfile.noupdate $path_to_kb
+  docker build --pull --tag ostis --file Dockerfile.noupdate $path_to_kb
 fi
 
 docker run -p $port:8000/tcp ostis bash -c "./run.sh"
