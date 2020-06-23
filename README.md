@@ -1,3 +1,7 @@
+# Deprecation
+
+Докеризацией OSTIS занялись официально и более серьёзно, так что скорее всего вы ищете [этот репозиторий](https://github.com/ostis-apps/dockerized-ostis). 
+
 # Dockerized ims.ostis
 
 Это инструкция по запску локального сервера ims.ostis в Docker контейнере.
