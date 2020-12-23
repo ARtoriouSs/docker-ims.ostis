@@ -1,3 +1,5 @@
+[![Docker Pulls](https://img.shields.io/docker/pulls/artorious/ostis.svg)](https://hub.docker.com/r/artorious/ostis)
+
 # Deprecation
 
 Докеризацией OSTIS занялись официально и более серьёзно, так что скорее всего вы ищете [этот репозиторий](https://github.com/ostis-apps/dockerized-ostis). 
